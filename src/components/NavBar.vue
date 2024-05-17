@@ -34,7 +34,6 @@ router.beforeEach((r) => {
 <template>
     <button class="lg:hidden block ml-auto text-2xl" @click="toggleMenu">
         <Icon icon="fa6-solid:bars" />
-        {{ showMenu }}
         <div v-if="showMenu" class="flex  group-hover:flex fixed top-[6vh] right-[10vw] flex-col opacity-90  bg-primary-content text-primary outline
             outline-primary p-2 rounded-sm  w-[80vw] text-center gap-8 z-20">
             <template v-for="(navItems, cat) in navItemsByCat ">
