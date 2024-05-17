@@ -22,8 +22,7 @@ const matchingEffect = computed(() =>
 <template>
   <div class="flex flex-col">
     <div
-      class="border-gray-700 bg-white sticky top-[6vh] flex flex-col items-center border-b-2 pl-3 lg:flex-row"
-    >
+      class="border-gray-700 bg-white sticky top-[6vh] flex flex-col items-center border-b-2 pl-3 lg:flex-row h-[6vh]">
       <div class="text-2xl font-bold lg:w-[40vw]">
         {{ changeCase.capitalCase(data?.name ?? "") }}
       </div>
@@ -43,11 +42,8 @@ const matchingEffect = computed(() =>
       {{ matchingEffect?.effect }}
     </div>
     <Accordion title="Learned By">
-      <div class="flex w-full flex-col gap-2 px-3">
-        <RouterLink
-          v-for="item in data?.learned_by_pokemon ?? []"
-          :to="apiRefToLocal(item)"
-        >
+      <div class="flex w-full flex-col gap-2 p-3">
+        <RouterLink v-for="item in data?.learned_by_pokemon ?? []" :to="apiRefToLocal(item)">
           {{ changeCase.capitalCase(item.name) }}
         </RouterLink>
       </div>

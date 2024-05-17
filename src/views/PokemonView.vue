@@ -37,14 +37,14 @@ import * as changeCase from "change-case"
       </div>
     </div>
     <Accordion title="Abilities">
-      <div class="flex flex-col gap-2 px-3">
+      <div class="flex flex-col gap-2 p-3">
         <div class v-for="ability in data?.abilities">
           {{ changeCase.capitalCase(ability.ability.name) }}
         </div>
       </div>
     </Accordion>
     <Accordion title="Games">
-      <div class="flex flex-col gap-2 px-3">
+      <div class="flex flex-col gap-2 p-3">
         <div class v-for="game in data?.game_indices">
           {{ changeCase.capitalCase(game.version.name) }}
         </div>
@@ -52,7 +52,7 @@ import * as changeCase from "change-case"
     </Accordion>
 
     <Accordion title="Moves">
-      <div class="flex flex-col gap-2 px-3">
+      <div class="flex flex-col gap-2 p-3">
         <div class v-for="move in data?.moves">
           <RouterLink :to="apiRefToLocal(move.move)">
             {{ changeCase.capitalCase(move.move.name) }}
