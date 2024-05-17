@@ -2,7 +2,7 @@
 import { useFetch } from "@vueuse/core"
 import { PokemonMoveData } from "../rest.types"
 
-import { useRoute } from "vue-router"
+import { useRoute, RouterLink } from "vue-router"
 const route = useRoute()
 import Accordion from "../components/Accordion.vue"
 import PokemonTypeDisplay from "../components/PokemonTypeDisplay.vue"
@@ -11,6 +11,7 @@ const { data } = useFetch(
   "https://pokeapi.co/api/v2/move/" + route.params.id
 ).json<PokemonMoveData>()
 import * as changeCase from "change-case";
+import { apiRefToLocal } from "../misc";
 import { computed } from "vue";
 
 const matchingEffect = computed(() => data?.value?.effect_entries.find(e => e.language.name === 'en'))
@@ -35,8 +36,19 @@ const matchingEffect = computed(() => data?.value?.effect_entries.find(e => e.la
         </span>
         {{ data?.pp }}
       </div>
-      <PokemonTypeDisplay :type="data.type.name" />
+      <PokemonTypeDisplay :type="data?.type.name ?? ''" />
     </div>
 
+    <div class="w-full px-3">
+      {{ matchingEffect?.effect }}
+    </div>
+    <Accordion title="Learned By">
+
+      <div class="w-full px-3 flex flex-col gap-2">
+        <RouterLink v-for="item in data?.learned_by_pokemon ?? []" :to="apiRefToLocal(item)">
+          {{ changeCase.capitalCase(item.name) }}
+        </RouterLink>
+      </div>
+    </Accordion>
   </div>
 </template>
