@@ -11,6 +11,7 @@ export default {
       "secondary-content": "#000",
       error: "#f00",
       "error-content": "#fff",
+      gray: "#c0c0c0",
     },
   },
   safelist: [
