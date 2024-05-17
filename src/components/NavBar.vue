@@ -53,7 +53,7 @@ function isCurr(nav: NavItem) {
                     {{ item.name }}
                 </RouterLink>
             </template>
-        </div>http://localhost:5173/list/item
+        </div>
     </button>
     <div ref="me" class="hidden lg:flex flex-row  gap-5 text-lg justify-end ml-auto">
 

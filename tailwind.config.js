@@ -17,7 +17,7 @@ export default {
   safelist: [
     {
       pattern:
-        /(bg|text|border.*)-(primary|secondary|error)(-content)?(-(100|200|300))?/,
+        /(hover:)?(bg|text|border.*)-(primary|secondary|error)(-content)?(-(100|200|300))?/,
     },
   ],
   plugins: [],
