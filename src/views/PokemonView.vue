@@ -16,7 +16,7 @@ import * as changeCase from "change-case"
 <template>
   <div class="flex flex-col">
     <div
-      class="border-gray-700 bg-white top-[6vh] flex flex-col items-center border-b-2 pl-3 lg:sticky lg:flex-row z-10">
+      class="border-gray-700 bg-white top-[6vh] flex flex-col items-center border-b-2 pl-3 lg:sticky lg:flex-row z-10 h-[6vh]">
       <img :src="data?.sprites?.back_default" />
 
       <div class="text-2xl font-bold">

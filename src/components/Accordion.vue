@@ -9,9 +9,8 @@ defineProps<{
 
 <template>
   <button
-    class="flex cursor-pointer flex-row items-center gap-2 rounded-sm p-3 outline outline-1"
-    @click="show = !show"
-  >
+    class="flex cursor-pointer flex-row items-center gap-2 rounded-sm p-3 outline outline-1 top-[12vh] z-20 sticky bg-white"
+    @click="show = !show">
     <div class="font-bold">{{ title }}</div>
     <Icon :icon="`fa-solid:${show ? 'minus' : 'plus'}`" />
   </button>
