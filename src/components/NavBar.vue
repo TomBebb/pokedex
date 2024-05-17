@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
 import { navItemsByCat, navCategories, NavCategory, } from "../nav.ts"
-
+import { Icon } from "@iconify/vue/dist/iconify.js";
+import { useRouter } from "vue-router";
 const me = ref<HTMLDivElement>()
 const expandedCat = ref<NavCategory>()
-function onClickHandler(event: MouseEvent) {
+const showMenu = ref<boolean>(false)
 
+function onClickHandler(event: MouseEvent) {
     const withinBoundaries = event.composedPath().includes(me.value!)
     if (!withinBoundaries) {
         expandedCat.value = undefined
@@ -13,9 +15,40 @@ function onClickHandler(event: MouseEvent) {
 }
 onMounted(() => document.addEventListener('click', onClickHandler))
 onUnmounted(() => document.removeEventListener('click', onClickHandler))
+
+function toggleMenu() {
+    showMenu.value = !showMenu.value
+}
+
+function closeMenu() {
+    showMenu.value = false
+    expandedCat.value = undefined
+
+}
+const router = useRouter()
+router.beforeEach((r) => {
+    console.info("Router before", r)
+    closeMenu()
+})
 </script>
 <template>
-    <div ref="me" class="flex-col lg:flex-row flex gap-5 text-lg  justify-end">
+    <button class="lg:hidden block ml-auto text-2xl" @click="toggleMenu">
+        <Icon icon="fa6-solid:bars" />
+        {{ showMenu }}
+        <div v-if="showMenu" class="flex  group-hover:flex fixed top-[6vh] right-[10vw] flex-col opacity-90  bg-primary-content text-primary outline
+            outline-primary p-2 rounded-sm  w-[80vw] text-center gap-8 z-20">
+            <template v-for="(navItems, cat) in navItemsByCat ">
+                <div class="text-2xl border-b-2 border-secondary">
+                    {{ navCategories[cat] }}
+                </div>
+
+                <RouterLink v-for="item in navItems" :to="item.path" class="text-xl">
+                    {{ item.name }}
+                </RouterLink>
+            </template>
+        </div>
+    </button>
+    <div ref="me" class="hidden lg:flex flex-row  gap-5 text-lg justify-end ml-auto">
 
         <div v-for="(navItems, navKey) in navItemsByCat ">
 
@@ -23,8 +56,8 @@ onUnmounted(() => document.removeEventListener('click', onClickHandler))
                 {{ navCategories[navKey] }}
             </button>
             <div v-if="expandedCat === navKey" class="flex  group-hover:flex absolute top-[100%] flex-col bg-primary-content text-primary outline
-            outline-primary p-2 rounded-sm">
-                <RouterLink v-for="item in navItems" :to="item.path" @click="expandedCat = undefined">
+            outline-primary p-2 rounded-sm z-20">
+                <RouterLink v-for="item in navItems" :to="item.path">
                     {{ item.name }}
                 </RouterLink>
             </div>
