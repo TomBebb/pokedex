@@ -4,6 +4,8 @@ export default {
   theme: {
     colors: {
       transparent: "transparent",
+      "gray-800": "#454646",
+      white: "white",
       current: "currentColor",
       primary: "#00f",
       "primary-content": "#fff",
