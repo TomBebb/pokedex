@@ -1,9 +1,9 @@
-export interface PaginatedResult<TItem> {
+export interface PaginatedResult {
   count: number
   next?: string
   previous?: string
 
-  results: TItem[]
+  results: NamedRef[]
 }
 export interface Ref {
   url: string
