@@ -2,11 +2,11 @@
 import { useFetch } from "@vueuse/core"
 import { PokemonData } from "../rest.types"
 
-import { useRoute } from "vue-router"
+import { useRoute, RouterLink } from "vue-router"
 const route = useRoute()
 import Accordion from "../components/Accordion.vue"
 import PokemonTypeDisplay from "../components/PokemonTypeDisplay.vue"
-
+import { apiRefToLocal } from "../misc"
 const { data } = useFetch(
   "https://pokeapi.co/api/v2/pokemon/" + route.params.id
 ).json<PokemonData>()
@@ -42,14 +42,14 @@ import * as changeCase from "change-case";
       </div>
     </div>
     <Accordion title="Abilities">
-      <div class="flex flex-col gap-2">
+      <div class="flex flex-col gap-2 px-3">
         <div class v-for="ability in data?.abilities">
           {{ changeCase.capitalCase(ability.ability.name) }}
         </div>
       </div>
     </Accordion>
     <Accordion title="Games">
-      <div class="flex flex-col gap-2">
+      <div class="flex flex-col gap-2 px-3">
         <div class v-for="game in data?.game_indices">
           {{ changeCase.capitalCase(game.version.name) }}
         </div>
@@ -57,10 +57,12 @@ import * as changeCase from "change-case";
     </Accordion>
 
     <Accordion title="Moves">
-      <div class="flex flex-col gap-2">
+      <div class="flex flex-col gap-2 px-3">
         <div class v-for="move in data?.moves">
-          {{ changeCase.capitalCase(move.move.name) }}
-          {{ move.move.url }}
+          <RouterLink :to="apiRefToLocal(move.move)">
+            {{ changeCase.capitalCase(move.move.name) }}
+
+          </RouterLink>
         </div>
       </div>
     </Accordion>
