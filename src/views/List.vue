@@ -1,17 +1,20 @@
 <script lang="ts" setup>
-import { useFetch } from "@vueuse/core"
+import { useFetch, } from "@vueuse/core"
 import { PaginatedResult } from "../rest.types"
 
 import { RouterLink } from "vue-router"
 import { Icon } from "@iconify/vue"
 import { apiRefToLocal } from "../misc"
 import * as changeCase from "change-case"
-import { useRouteQuery } from "@vueuse/router";
+import { useRouteParams, useRouteQuery } from "@vueuse/router";
 import { computed } from "vue"
+
+const type = useRouteParams("type")
+
 const offset = useRouteQuery('offset', 0, { transform: Number })
 const limit = useRouteQuery('limit', 25, { transform: Number })
 const fetchUrl = computed(() =>
-    `https://pokeapi.co/api/v2/pokemon/?offset=${encodeURIComponent(offset.value)}&limit=${encodeURIComponent(limit.value)}`)
+    `https://pokeapi.co/api/v2/${type.value}/?offset=${encodeURIComponent(offset.value)}&limit=${encodeURIComponent(limit.value)}`)
 const { data, isFinished, isFetching } = useFetch(fetchUrl,
     { refetch: true }
 ).json<PaginatedResult>()

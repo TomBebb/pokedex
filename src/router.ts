@@ -8,13 +8,21 @@ import {
 
 const PokemonView = () => import("./views/PokemonView.vue")
 const PokemonMoveView = () => import("./views/PokemonMove.vue")
-const PokemonListView = () => import("./views/PokemonList.vue")
+const PokemonListView = () => import("./views/List.vue")
 
 export interface MyRouteMeta {
   name: string
   visible: boolean
 }
 export const routes: (RouteRecordSingleView & { meta: MyRouteMeta })[] = [
+  {
+    path: "/list/:type",
+    component: PokemonListView,
+    meta: {
+      name: "List",
+      visible: true,
+    },
+  },
   {
     path: "/pokemon/:id",
     component: PokemonView,
@@ -29,14 +37,6 @@ export const routes: (RouteRecordSingleView & { meta: MyRouteMeta })[] = [
     meta: {
       name: "Pokemon Move Viewer",
       visible: false,
-    },
-  },
-  {
-    path: "/pokemon",
-    component: PokemonListView,
-    meta: {
-      name: "List Pokemon",
-      visible: true,
     },
   },
 ]
