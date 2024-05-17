@@ -55,8 +55,7 @@ function prevPage() {
         Prev
       </MyButton>
 
-      <MyButton icon="fa6-solid:angles-right" theme="primary" :disabled="pageIndex >= totalPages" @click="nextPage">
-
+      <MyButton icon="fa6-solid:angles-right" theme="primary" :disabled="pageIndex >= totalPages - 1" @click="nextPage">
         Next
       </MyButton>
     </div>
