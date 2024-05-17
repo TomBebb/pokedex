@@ -16,31 +16,29 @@ import * as changeCase from "change-case";
 
 <template>
   <div class="flex flex-col">
-    <div class="sticky  pl-3  top-[6vh] bg-white border-b-2 border-gray-700 flex flex-row">
+    <div class="sticky  pl-3  top-[6vh] bg-white border-b-2 border-gray-700 flex flex-row items-center">
 
-      <div class="font-bold text-2xl "> {{ changeCase.capitalCase(data?.name ?? '') }}</div>
+      <div class="font-bold text-2xl ">
+        {{ changeCase.capitalCase(data?.name ?? '') }}
+      </div>
 
       <div class="w-full" />
+      <div class="min-w-40">
+        <span class="font-semibold">
+          Height:
+        </span>
+        {{ data?.height }}
+      </div>
+      <div class="min-w-40">
+        <span class="font-semibold">
+          Weight:
+        </span>
+        {{ data?.weight }}
+      </div>
       <div class v-for="type in data?.types">
         <PokemonTypeDisplay :type="type.type.name" />
       </div>
     </div>
-    <Accordion title="Physical">
-      <div class="flex gap-10">
-        <div>
-          <span class="font-semibold">
-            Height:
-          </span>
-          {{ data?.height }}
-        </div>
-        <div>
-          <span class="font-semibold">
-            Weight:
-          </span>
-          {{ data?.weight }}
-        </div>
-      </div>
-    </Accordion>
     <Accordion title="Abilities">
       <div class="flex flex-col gap-2">
         <div class v-for="ability in data?.abilities">
