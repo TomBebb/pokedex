@@ -17,7 +17,6 @@ test("button has error theme", () => {
   const wrapper = mount(MyButton, {
     attrs: { theme: "error" satisfies MyStyle },
   })
-  console.log(wrapper.html())
 
   expect(wrapper.html()).includes("text-error")
   expect(wrapper.html()).includes("bg-error")
