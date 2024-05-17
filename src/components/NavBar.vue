@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
-import { navItemsByCat, navCategories, NavCategory, } from "../nav.ts"
+import { navItemsByCat, navCategories, NavCategory, NavItem, } from "../nav.ts"
 import { Icon } from "@iconify/vue/dist/iconify.js";
 import { useRouter } from "vue-router";
+import { styleClass } from "../styles.ts";
 const me = ref<HTMLDivElement>()
 const expandedCat = ref<NavCategory>()
 const showMenu = ref<boolean>(false)
@@ -30,6 +31,13 @@ router.beforeEach((r) => {
     console.info("Router before", r)
     closeMenu()
 })
+
+
+function isCurr(nav: NavItem) {
+    return router.currentRoute.value.fullPath.startsWith(nav.path)
+}
+
+
 </script>
 <template>
     <button class="lg:hidden block ml-auto text-2xl" @click="toggleMenu">
@@ -49,22 +57,26 @@ router.beforeEach((r) => {
     </button>
     <div ref="me" class="hidden lg:flex flex-row  gap-5 text-lg justify-end ml-auto">
 
-        <div v-for="(navItems, navKey) in navItemsByCat ">
+        <div v-for="(navItems, navKey) in navItemsByCat">
             <RouterLink v-if="navItems.length === 1" :to="navItems[0].path">
-                <div class="p-2 outline outline-2 rounded hover:outline-4 transition">
+                <div class="p-2 outline outline-2 rounded hover:outline-4 transition"
+                    :class="isCurr(navItems[0]) && styleClass('primary')">
+
                     {{ navItems[0].name }}
                 </div>
             </RouterLink>
             <template v-else>
 
                 <button class="p-2 outline outline-2 rounded hover:outline-4 transition"
+                    :class="navItems.find(isCurr) && styleClass('primary')"
                     @click="expandedCat = expandedCat === navKey ? undefined : navKey">
                     {{ navCategories[navKey] }}
                 </button>
                 <div v-if="expandedCat === navKey" class="flex  group-hover:flex absolute top-[100%] flex-col bg-primary-content text-primary 
          rounded-sm z-20">
                     <RouterLink v-for="item in navItems" :to="item.path"
-                        class="hover:outline-4 outline-2 outline px-2 py-1">
+                        class="hover:outline-4 outline-2 outline px-2 py-1"
+                        :class="isCurr(item) && styleClass('primary')">
                         {{ item.name }}
                     </RouterLink>
                 </div>
