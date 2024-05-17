@@ -5,6 +5,7 @@ import { PokemonData } from "../rest.types"
 import { useRoute } from "vue-router"
 const route = useRoute()
 import Accordion from "../components/Accordion.vue"
+import PokemonTypeDisplay from "../components/PokemonTypeDisplay.vue"
 
 const { data } = useFetch(
   "https://pokeapi.co/api/v2/pokemon/" + route.params.id
@@ -15,9 +16,14 @@ import * as changeCase from "change-case";
 
 <template>
   <div class="flex flex-col">
-    <div class="font-bold text-2xl sticky top-[6vh] bg-white border-b-2 border-gray-700">
+    <div class="sticky  pl-3  top-[6vh] bg-white border-b-2 border-gray-700 flex flex-row">
 
-      {{ changeCase.capitalCase(data?.name ?? '') }}
+      <div class="font-bold text-2xl "> {{ changeCase.capitalCase(data?.name ?? '') }}</div>
+
+      <div class="w-full" />
+      <div class v-for="type in data?.types">
+        <PokemonTypeDisplay :type="type.type.name" />
+      </div>
     </div>
     <Accordion title="Physical">
       <div class="flex gap-10">
@@ -54,13 +60,6 @@ import * as changeCase from "change-case";
       <div class="flex flex-col gap-2">
         <div class v-for="move in data?.moves">
           {{ changeCase.capitalCase(move.move.name) }}
-        </div>
-      </div>
-    </Accordion>
-    <Accordion title="Types">
-      <div class="flex flex-col gap-2">
-        <div class v-for="type in data?.types">
-          {{ (type.type.name).toUpperCase() }}
         </div>
       </div>
     </Accordion>
