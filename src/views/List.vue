@@ -1,71 +1,81 @@
 <script lang="ts" setup>
-import { useFetch, } from "@vueuse/core"
+import { useFetch } from "@vueuse/core"
 import { PaginatedResult } from "../rest.types"
 
 import { RouterLink } from "vue-router"
 import { Icon } from "@iconify/vue"
 import { apiRefToLocal } from "../misc"
 import * as changeCase from "change-case"
-import { useRouteParams, useRouteQuery } from "@vueuse/router";
+import { useRouteParams, useRouteQuery } from "@vueuse/router"
 import { computed } from "vue"
 
 const type = useRouteParams("type")
 
-const offset = useRouteQuery('offset', 0, { transform: Number })
-const limit = useRouteQuery('limit', 25, { transform: Number })
-const fetchUrl = computed(() =>
-    `https://pokeapi.co/api/v2/${type.value}/?offset=${encodeURIComponent(offset.value)}&limit=${encodeURIComponent(limit.value)}`)
-const { data, isFinished, isFetching } = useFetch(fetchUrl,
-    { refetch: true }
-).json<PaginatedResult>()
+const offset = useRouteQuery("offset", 0, { transform: Number })
+const limit = useRouteQuery("limit", 25, { transform: Number })
+const fetchUrl = computed(
+  () =>
+    `https://pokeapi.co/api/v2/${type.value}/?offset=${encodeURIComponent(offset.value)}&limit=${encodeURIComponent(limit.value)}`
+)
+const { data, isFinished, isFetching } = useFetch(fetchUrl, {
+  refetch: true,
+}).json<PaginatedResult>()
 
-const totalPages = computed(() => Math.ceil((data.value?.count ?? 0) / limit.value))
+const totalPages = computed(() =>
+  Math.ceil((data.value?.count ?? 0) / limit.value)
+)
 const pageIndex = computed({
-    get: () => Math.floor(offset.value / limit.value),
-    set: v => {
-        offset.value = v * limit.value
-    }
+  get: () => Math.floor(offset.value / limit.value),
+  set: (v) => {
+    offset.value = v * limit.value
+  },
 })
 const pageNumber = computed({
-    get: () => pageIndex.value + 1,
-    set: v => pageIndex.value = v - 1
+  get: () => pageIndex.value + 1,
+  set: (v) => (pageIndex.value = v - 1),
 })
 function nextPage() {
-    console.log('nex')
-    pageIndex.value++
+  console.log("nex")
+  pageIndex.value++
 }
 function prevPage() {
-    pageIndex.value--
+  pageIndex.value--
 }
 </script>
 
 <template>
-    <div class="flex flex-col">
-        <Icon icon="fa-solid:spinner" class="animate-spin absolute left-1/2 top-1/2" v-if="isFetching" />
-        <div class="top-[6vh] flex flex-row items-center border-b-2 border-gray-700 bg-white pl-3 gap-2 min-h-10"
-            :class="{ 'invisible': !isFinished }">
-            <div>
+  <div class="flex flex-col">
+    <Icon
+      icon="fa-solid:spinner"
+      class="absolute left-1/2 top-1/2 animate-spin"
+      v-if="isFetching"
+    />
+    <div
+      class="top-[6vh] flex min-h-10 flex-row items-center gap-2 border-b-2 border-gray-700 bg-white pl-3"
+      :class="{ invisible: !isFinished }"
+    >
+      <div>Page {{ pageNumber }} of {{ totalPages }}</div>
 
-                Page {{ pageNumber }} of {{ totalPages }}
-            </div>
-
-
-            <button
-                class="border-orange-300  border-2 px-3 rounded disabled:border-red-700 flex flex-row gap-2 items-center"
-                :disabled="pageIndex <= 0" @click="prevPage">
-                <Icon icon="fa6-solid:angles-left" />
-                Prev
-            </button>
-            <button class="border-green disabled:border-red-700 border-2 px-3 rounded flex flex-row gap-2 items-center"
-                :disabled="pageIndex >= totalPages" @click="nextPage">
-                <Icon icon="fa6-solid:angles-right" />
-                Next
-            </button>
-        </div>
-
-        <RouterLink v-for="item in data?.results ?? []" :to="apiRefToLocal(item)">
-            {{ changeCase.capitalCase(item.name) }}
-        </RouterLink>
-
+      <button
+        class="flex flex-row items-center gap-2 rounded border-2 border-orange-300 px-3 disabled:border-red-700"
+        :disabled="pageIndex <= 0"
+        @click="prevPage"
+      >
+        <Icon icon="fa6-solid:angles-left" />
+        Prev
+      </button>
+      <button
+        class="border-green flex flex-row items-center gap-2 rounded border-2 px-3 disabled:border-red-700"
+        :disabled="pageIndex >= totalPages"
+        @click="nextPage"
+      >
+        <Icon icon="fa6-solid:angles-right" />
+        Next
+      </button>
     </div>
+
+    <RouterLink v-for="item in data?.results ?? []" :to="apiRefToLocal(item)">
+      {{ changeCase.capitalCase(item.name) }}
+    </RouterLink>
+  </div>
 </template>

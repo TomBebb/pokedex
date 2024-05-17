@@ -10,6 +10,7 @@ import { navItems } from "./nav"
 const PokemonView = () => import("./views/PokemonView.vue")
 const PokemonMoveView = () => import("./views/PokemonMove.vue")
 const PokemonListView = () => import("./views/List.vue")
+const HomeView = () => import("./views/Home.vue")
 
 export interface MyRouteMeta {
   name: string
@@ -37,6 +38,14 @@ export const routes: (RouteRecordSingleView & { meta: MyRouteMeta })[] = [
     component: PokemonMoveView,
     meta: {
       name: "Pokemon Move Viewer",
+      visible: false,
+    },
+  },
+  {
+    path: "/",
+    component: HomeView,
+    meta: {
+      name: "Home",
       visible: false,
     },
   },
