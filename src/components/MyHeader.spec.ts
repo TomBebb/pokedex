@@ -1,7 +1,7 @@
 import MyHeader from "./MyHeader.vue"
 import { mount } from "@vue/test-utils"
 import { expect, test } from "vitest"
-import { router, routes } from "../router"
+import { router } from "../router"
 test("myheader has pageName hello world", () => {
   const wrapper = mount(MyHeader, {
     props: { pageName: "Hello, world!" },
