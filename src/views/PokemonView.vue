@@ -37,8 +37,8 @@ import * as changeCase from "change-case";
         </span>
         {{ data?.weight }}
       </div>
-      <div class v-for="type in data?.types">
-        <PokemonTypeDisplay :type="type.type.name" />
+      <div class v-for="ty in data?.types">
+        <PokemonTypeDisplay :type="ty.type.name" />
       </div>
     </div>
     <Accordion title="Abilities">
