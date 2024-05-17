@@ -22,7 +22,7 @@ const matchingEffect = computed(() =>
 <template>
   <div class="flex flex-col">
     <div
-      class="sticky top-[6vh] flex flex-col items-center border-b-2 border-gray-700 bg-white pl-3 lg:flex-row"
+      class="border-gray-700 bg-white sticky top-[6vh] flex flex-col items-center border-b-2 pl-3 lg:flex-row"
     >
       <div class="text-2xl font-bold lg:w-[40vw]">
         {{ changeCase.capitalCase(data?.name ?? "") }}

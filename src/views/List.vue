@@ -9,6 +9,7 @@ import * as changeCase from "change-case"
 import { useRouteParams, useRouteQuery } from "@vueuse/router"
 import { computed } from "vue"
 
+import MyButton from "../components/MyButton.vue"
 const type = useRouteParams("type")
 
 const offset = useRouteQuery("offset", 0, { transform: Number })
@@ -45,33 +46,19 @@ function prevPage() {
 
 <template>
   <div class="flex flex-col">
-    <Icon
-      icon="fa-solid:spinner"
-      class="absolute left-1/2 top-1/2 animate-spin"
-      v-if="isFetching"
-    />
-    <div
-      class="top-[6vh] flex min-h-10 flex-row items-center gap-2 border-b-2 border-gray-700 bg-white pl-3"
-      :class="{ invisible: !isFinished }"
-    >
+    <Icon icon="fa-solid:spinner" class="absolute left-1/2 top-1/2 animate-spin" v-if="isFetching" />
+    <div class="border-gray-700 bg-white top-[6vh] flex min-h-10 flex-row items-center gap-2 border-b-2 pl-3"
+      :class="{ invisible: !isFinished }">
       <div>Page {{ pageNumber }} of {{ totalPages }}</div>
 
-      <button
-        class="flex flex-row items-center gap-2 rounded border-2 border-orange-300 px-3 disabled:border-red-700"
-        :disabled="pageIndex <= 0"
-        @click="prevPage"
-      >
-        <Icon icon="fa6-solid:angles-left" />
+      <MyButton icon="fa6-solid:angles-left" theme="secondary" :disabled="pageIndex <= 0" @click="prevPage">
         Prev
-      </button>
-      <button
-        class="border-green flex flex-row items-center gap-2 rounded border-2 px-3 disabled:border-red-700"
-        :disabled="pageIndex >= totalPages"
-        @click="nextPage"
-      >
-        <Icon icon="fa6-solid:angles-right" />
+      </MyButton>
+
+      <MyButton icon="fa6-solid:angles-right" theme="primary" :disabled="pageIndex >= totalPages" @click="nextPage">
+
         Next
-      </button>
+      </MyButton>
     </div>
 
     <RouterLink v-for="item in data?.results ?? []" :to="apiRefToLocal(item)">
