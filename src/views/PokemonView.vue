@@ -16,7 +16,9 @@ import * as changeCase from "change-case";
 
 <template>
   <div class="flex flex-col">
-    <div class="sticky  pl-3  top-[6vh] bg-white border-b-2 border-gray-700 flex flex-row items-center">
+    <div class="sticky pl-3 top-[6vh] bg-white border-b-2 border-gray-700 flex flex-row items-center">
+
+      <img :src="data?.sprites?.back_default" />
 
       <div class="font-bold text-2xl ">
         {{ changeCase.capitalCase(data?.name ?? '') }}
