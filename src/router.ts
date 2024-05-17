@@ -5,6 +5,7 @@ import {
   RouteRecord,
   RouteLocationNormalized,
 } from "vue-router"
+import { navItems } from "./nav"
 
 const PokemonView = () => import("./views/PokemonView.vue")
 const PokemonMoveView = () => import("./views/PokemonMove.vue")
@@ -48,6 +49,8 @@ export function getRouteMeta(
 export function getRouteName(
   route: RouteRecord | RouteLocationNormalized
 ): string {
+  const navItem = navItems.find((ni) => ni.path === route.path)
+  if (navItem) return navItem.name
   return getRouteMeta(route).name
 }
 export const router = createRouter({
