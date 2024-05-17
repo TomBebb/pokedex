@@ -68,3 +68,25 @@ export interface PokemonData {
   types: { slot: number; type: BasicPageData }[]
   weight: number
 }
+
+export interface PokemonMove {
+  accuracy: number
+  name: string
+  contest_effect: { url: string }
+  contest_type: BasicPageData
+  damage_class: string
+
+  learned_by_pokemon: BasicPageData[]
+  generation: BasicPageData
+  flavor_text_entries: [
+    {
+      flavor_text: string
+      language: BasicPageData
+      version_group: BasicPageData
+    },
+  ]
+  power: number
+  pp: number
+
+  type: BasicPageData
+}

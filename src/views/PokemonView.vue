@@ -60,6 +60,7 @@ import * as changeCase from "change-case";
       <div class="flex flex-col gap-2">
         <div class v-for="move in data?.moves">
           {{ changeCase.capitalCase(move.move.name) }}
+          {{ move.move.url }}
         </div>
       </div>
     </Accordion>
