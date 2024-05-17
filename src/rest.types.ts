@@ -5,8 +5,11 @@ export interface PaginatedResult<TItem> {
 
   results: TItem[]
 }
+export interface Ref {
+  url: string
+}
 
-export interface BasicPageData {
+export interface NamedRef {
   name: string
   url: string
 }
@@ -19,39 +22,39 @@ type SpriteKind =
 type BaseSpriteMap = Partial<Record<SpriteKind, string>>
 export interface PokemonData {
   abilities: {
-    ability: BasicPageData
+    ability: NamedRef
     is_hidden: boolean
     slot: number
   }[]
   base_experience: number
   cries: Record<"latest" | "legacy", string>
-  forms: BasicPageData[]
+  forms: NamedRef[]
   game_indices: {
     game_index: number
-    version: BasicPageData
+    version: NamedRef
   }[]
   height: number
   held_items: {
-    item: BasicPageData
+    item: NamedRef
     version_details: {
       rarity: number
-      version: BasicPageData
+      version: NamedRef
     }[]
   }[]
   id: number
   is_default: boolean
   location_area_encounters: string
   moves: {
-    move: BasicPageData
+    move: NamedRef
     version_group_details: {
       level_learned_at: number
-      move_learn_method: BasicPageData
-      version_group: BasicPageData
+      move_learn_method: NamedRef
+      version_group: NamedRef
     }[]
   }[]
   name: string
   order: number
-  species: BasicPageData
+  species: NamedRef
   sprites: BaseSpriteMap & {
     other: {
       dream_world: BaseSpriteMap
@@ -63,30 +66,42 @@ export interface PokemonData {
   stats: {
     base_stat: number
     effort: number
-    stat: BasicPageData
+    stat: NamedRef
   }[]
-  types: { slot: number; type: BasicPageData }[]
+  types: { slot: number; type: NamedRef }[]
   weight: number
 }
 
-export interface PokemonMove {
+export interface PokemonMoveData {
   accuracy: number
   name: string
-  contest_effect: { url: string }
-  contest_type: BasicPageData
+  contest_effect: Ref
+  contest_type: NamedRef
   damage_class: string
+  effect_entries: [
+    {
+      effect: string
+      short_effect: string
+      language: NamedRef
+    },
+  ]
 
-  learned_by_pokemon: BasicPageData[]
-  generation: BasicPageData
+  learned_by_pokemon: NamedRef[]
+  generation: NamedRef
   flavor_text_entries: [
     {
       flavor_text: string
-      language: BasicPageData
-      version_group: BasicPageData
+      language: NamedRef
+      version_group: NamedRef
     },
   ]
+  machines: {
+    machine: Ref
+    version_group: NamedRef
+  }[]
   power: number
   pp: number
+  priority: number
 
-  type: BasicPageData
+  type: NamedRef
 }

@@ -16,7 +16,7 @@ import * as changeCase from "change-case";
 
 <template>
   <div class="flex flex-col">
-    <div class="sticky pl-3 top-[6vh] bg-white border-b-2 border-gray-700 flex flex-row items-center">
+    <div class="lg:sticky pl-3 top-[6vh] bg-white border-b-2 border-gray-700 flex flex-col lg:flex-row items-center">
 
       <img :src="data?.sprites?.back_default" />
 
@@ -24,21 +24,21 @@ import * as changeCase from "change-case";
         {{ changeCase.capitalCase(data?.name ?? '') }}
       </div>
 
-      <div class="w-full" />
-      <div class="min-w-40">
+      <div class="lg:w-full" />
+      <div class="lg:min-w-40">
         <span class="font-semibold">
           Height:
         </span>
         {{ data?.height }}
       </div>
-      <div class="min-w-40">
+      <div class="lg:min-w-40">
         <span class="font-semibold">
           Weight:
         </span>
         {{ data?.weight }}
       </div>
-      <div class v-for="ty in data?.types">
-        <PokemonTypeDisplay :type="ty.type.name" />
+      <div class="flex flex-row">
+        <PokemonTypeDisplay :type="ty.type.name" v-for="ty in data?.types" />
       </div>
     </div>
     <Accordion title="Abilities">
