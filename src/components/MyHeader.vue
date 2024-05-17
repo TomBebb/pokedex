@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterLink } from "vue-router"
-
+import NavBar from "./NavBar.vue"
 defineProps<{ pageName: string }>()
 </script>
 <template>
@@ -10,5 +10,6 @@ defineProps<{ pageName: string }>()
     <div class="text-xl font-bold">
       {{ pageName }}
     </div>
+    <NavBar class="ml-auto flex-1" />
   </header>
 </template>
