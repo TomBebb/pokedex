@@ -53,7 +53,7 @@ function isCurr(nav: NavItem) {
                     {{ item.name }}
                 </RouterLink>
             </template>
-        </div>
+        </div>http://localhost:5173/list/item
     </button>
     <div ref="me" class="hidden lg:flex flex-row  gap-5 text-lg justify-end ml-auto">
 
@@ -72,10 +72,10 @@ function isCurr(nav: NavItem) {
                     @click="expandedCat = expandedCat === navKey ? undefined : navKey">
                     {{ navCategories[navKey] }}
                 </button>
-                <div v-if="expandedCat === navKey" class="flex  group-hover:flex absolute top-[100%] flex-col bg-primary-content text-primary 
+                <div v-if="expandedCat === navKey" class="flex group-hover:flex absolute top-[100%] flex-col bg-primary-content text-primary 
          rounded-sm z-20">
                     <RouterLink v-for="item in navItems" :to="item.path"
-                        class="hover:outline-4 outline-2 outline px-2 py-1"
+                        class="hover:outline-4 outline-2 outline px-2 py-1 rounded-sm"
                         :class="isCurr(item) && styleClass('primary')">
                         {{ item.name }}
                     </RouterLink>
