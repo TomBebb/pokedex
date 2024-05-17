@@ -1,4 +1,4 @@
-export const navCategories = {
+export const navCategoryNames = {
   berries: "Berries",
   contests: "Contests",
   encounters: "Encounters",
@@ -10,7 +10,9 @@ export const navCategories = {
   moves: "Machines",
   pokemon: "Pokémon",
 }
-export type NavCategory = keyof typeof navCategories
+
+export const navCategories = Object.keys(navCategoryNames) as NavCategory[]
+export type NavCategory = keyof typeof navCategoryNames
 
 export interface NavItem {
   name: string
@@ -70,7 +72,7 @@ export const navItems: NavItem[] = [
   },
 ]
 export const navItemsByCat: Record<NavCategory, NavItem[]> = Object.fromEntries(
-  Object.keys(navCategories)
+  navCategories
     .map((cat) => [cat, navItems.filter((ni) => ni.category === cat)])
     .filter(([_k, v]) => v.length)
 )

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
-import { navItemsByCat, navCategories, NavCategory, NavItem, } from "../nav.ts"
+import { navItemsByCat, navCategoryNames, NavCategory, NavItem, } from "../nav.ts"
 import { Icon } from "@iconify/vue/dist/iconify.js";
 import { useRouter } from "vue-router";
 import { styleClass } from "../styles.ts";
@@ -43,10 +43,10 @@ function isCurr(nav: NavItem) {
     <button class="lg:hidden block ml-auto text-2xl" @click="toggleMenu">
         <Icon icon="fa6-solid:bars" />
         <div v-if="showMenu" class="flex  group-hover:flex fixed top-[6vh] right-[10vw] flex-col opacity-90  bg-primary-content text-primary outline
-            outline-primary p-2 rounded-sm  w-[80vw] text-center gap-8 z-20">
+            outline-primary p-2 rounded-sm  w-[80vw] text-center gap-8 z-[100]">
             <template v-for="(navItems, cat) in navItemsByCat ">
                 <div class="text-2xl border-b-2 border-secondary">
-                    {{ navCategories[cat] }}
+                    {{ navCategoryNames[cat] }}
                 </div>
 
                 <RouterLink v-for="item in navItems" :to="item.path" class="text-xl">
@@ -55,7 +55,7 @@ function isCurr(nav: NavItem) {
             </template>
         </div>
     </button>
-    <div ref="me" class="hidden lg:flex flex-row  gap-5 text-lg justify-end ml-auto">
+    <div ref="me" class="hidden lg:flex flex-row  gap-5 text-lg justify-end ml-auto ">
 
         <div v-for="(navItems, navKey) in navItemsByCat">
             <RouterLink v-if="navItems.length === 1" :to="navItems[0].path">
@@ -70,10 +70,10 @@ function isCurr(nav: NavItem) {
                 <button class="p-2 outline outline-2 rounded hover:outline-4 transition"
                     :class="navItems.find(isCurr) && styleClass('primary')"
                     @click="expandedCat = expandedCat === navKey ? undefined : navKey">
-                    {{ navCategories[navKey] }}
+                    {{ navCategoryNames[navKey] }}
                 </button>
                 <div v-if="expandedCat === navKey" class="flex group-hover:flex absolute top-[100%] flex-col bg-primary-content text-primary 
-         rounded-sm z-20">
+         rounded-sm z-[100]">
                     <RouterLink v-for="item in navItems" :to="item.path"
                         class="hover:outline-4 outline-2 outline px-2 py-1 rounded-sm"
                         :class="isCurr(item) && styleClass('primary')">
