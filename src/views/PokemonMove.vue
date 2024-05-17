@@ -10,30 +10,30 @@ import PokemonTypeDisplay from "../components/PokemonTypeDisplay.vue"
 const { data } = useFetch(
   "https://pokeapi.co/api/v2/move/" + route.params.id
 ).json<PokemonMoveData>()
-import * as changeCase from "change-case";
-import { apiRefToLocal } from "../misc";
-import { computed } from "vue";
+import * as changeCase from "change-case"
+import { apiRefToLocal } from "../misc"
+import { computed } from "vue"
 
-const matchingEffect = computed(() => data?.value?.effect_entries.find(e => e.language.name === 'en'))
+const matchingEffect = computed(() =>
+  data?.value?.effect_entries.find((e) => e.language.name === "en")
+)
 </script>
 
 <template>
   <div class="flex flex-col">
-    <div class="sticky pl-3 top-[6vh] bg-white border-b-2 border-gray-700 flex flex-col lg:flex-row items-center">
-
-
-      <div class="font-bold text-2xl  lg:w-[40vw]">
-        {{ changeCase.capitalCase(data?.name ?? '') }}
+    <div
+      class="sticky top-[6vh] flex flex-col items-center border-b-2 border-gray-700 bg-white pl-3 lg:flex-row"
+    >
+      <div class="text-2xl font-bold lg:w-[40vw]">
+        {{ changeCase.capitalCase(data?.name ?? "") }}
       </div>
 
-      <div class="w-full ">
+      <div class="w-full">
         {{ matchingEffect?.short_effect }}
       </div>
 
       <div class="lg:min-w-40">
-        <span class="font-semibold">
-          PP:
-        </span>
+        <span class="font-semibold"> PP: </span>
         {{ data?.pp }}
       </div>
       <PokemonTypeDisplay :type="data?.type.name ?? ''" />
@@ -43,9 +43,11 @@ const matchingEffect = computed(() => data?.value?.effect_entries.find(e => e.la
       {{ matchingEffect?.effect }}
     </div>
     <Accordion title="Learned By">
-
-      <div class="w-full px-3 flex flex-col gap-2">
-        <RouterLink v-for="item in data?.learned_by_pokemon ?? []" :to="apiRefToLocal(item)">
+      <div class="flex w-full flex-col gap-2 px-3">
+        <RouterLink
+          v-for="item in data?.learned_by_pokemon ?? []"
+          :to="apiRefToLocal(item)"
+        >
           {{ changeCase.capitalCase(item.name) }}
         </RouterLink>
       </div>
