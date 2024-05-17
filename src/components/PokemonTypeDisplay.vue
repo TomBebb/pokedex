@@ -19,14 +19,12 @@ const colours = {
   steel: "#B7B7CE",
   fairy: "#D685AD",
 }
+type PokemonType = keyof typeof colours
 
 defineProps<{ type: string }>()
 </script>
 <template>
-  <div
-    :style="{ backgroundColor: colours[type.toLowerCase()] ?? '#777' }"
-    class="p-2 text-center"
-  >
+  <div :style="{ backgroundColor: colours[type.toLowerCase() as PokemonType] ?? '#777' }" class="p-2 text-center">
     {{ type.toUpperCase() }}
   </div>
 </template>

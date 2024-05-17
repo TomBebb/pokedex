@@ -72,5 +72,5 @@ export const navItems: NavItem[] = [
 export const navItemsByCat: Record<NavCategory, NavItem[]> = Object.fromEntries(
   Object.keys(navCategories)
     .map((cat) => [cat, navItems.filter((ni) => ni.category === cat)])
-    .filter(([k, v]) => v.length)
+    .filter(([_k, v]) => v.length)
 )
