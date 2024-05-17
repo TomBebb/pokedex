@@ -50,18 +50,25 @@ router.beforeEach((r) => {
     <div ref="me" class="hidden lg:flex flex-row  gap-5 text-lg justify-end ml-auto">
 
         <div v-for="(navItems, navKey) in navItemsByCat ">
+            <RouterLink v-if="navItems.length === 1" :to="navItems[0].path">
+                <div class="p-2 outline outline-2 rounded hover:outline-4 transition">
+                    {{ navItems[0].name }}
+                </div>
+            </RouterLink>
+            <template v-else>
 
-            <button class=" p-2 outline outline-2 rounded hover:outline-4 transition "
-                @click="expandedCat = expandedCat === navKey ? undefined : navKey">
-                {{ navCategories[navKey] }}
-            </button>
-            <div v-if="expandedCat === navKey" class="flex  group-hover:flex absolute top-[100%] flex-col bg-primary-content text-primary 
+                <button class="p-2 outline outline-2 rounded hover:outline-4 transition"
+                    @click="expandedCat = expandedCat === navKey ? undefined : navKey">
+                    {{ navCategories[navKey] }}
+                </button>
+                <div v-if="expandedCat === navKey" class="flex  group-hover:flex absolute top-[100%] flex-col bg-primary-content text-primary 
          rounded-sm z-20">
-                <RouterLink v-for="item in navItems" :to="item.path"
-                    class="hover:outline-4 outline-2 outline px-2 py-1">
-                    {{ item.name }}
-                </RouterLink>
-            </div>
+                    <RouterLink v-for="item in navItems" :to="item.path"
+                        class="hover:outline-4 outline-2 outline px-2 py-1">
+                        {{ item.name }}
+                    </RouterLink>
+                </div>
+            </template>
         </div>
     </div>
 </template>
