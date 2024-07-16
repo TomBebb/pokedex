@@ -9,7 +9,10 @@ export default async function handler(
     res: NextApiResponse<Pokemon|{message: string}>
 ) {
     const slug = req.query.slug as string
-    const raw = await pokemon.findOne({number: {$eq: Number(slug)}})
+    const raw = await pokemon.findOne({$or: [
+        {number: {$eq: Number(slug)}},
+            {$text: {$search: slug}}
+        ]})
     if (raw === null) {
         return res.status(404).json({message: 'Pokemon does not exist'})
     }
