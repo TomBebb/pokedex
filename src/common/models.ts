@@ -51,3 +51,6 @@ export interface Paginated<T> extends PaginatedQuery {
   items: T[]
   total: number
 }
+export interface ValueWrapper<T> {
+  value: T
+}

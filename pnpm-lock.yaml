@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@mantine/hooks':
+        specifier: ^7.11.2
+        version: 7.11.2(react@18.3.1)
       mongodb:
         specifier: ^6.8.0
         version: 6.8.0
@@ -119,6 +122,11 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
+
+  '@mantine/hooks@7.11.2':
+    resolution: {integrity: sha512-jhyVe/sbDEG2U8rr2lMecUPgQxcfr5hh9HazqGfkS7ZRIMDO7uJ947yAcTMGGkp5Lxtt5TBFt1Cb6tiB2/1agg==}
+    peerDependencies:
+      react: ^18.2.0
 
   '@mongodb-js/saslprep@1.1.7':
     resolution: {integrity: sha512-dCHW/oEX0KJ4NjDULBo3JiOaK5+6axtpBbS+ao2ZInoAL9/YRQLhXzSNAFz7hP4nzLkIqsfYAK/PDE3+XHny0Q==}
@@ -1872,6 +1880,10 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
+
+  '@mantine/hooks@7.11.2(react@18.3.1)':
+    dependencies:
+      react: 18.3.1
 
   '@mongodb-js/saslprep@1.1.7':
     dependencies:
