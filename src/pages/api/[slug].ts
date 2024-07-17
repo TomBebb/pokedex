@@ -10,6 +10,7 @@ export default async function handler(
 ) {
     const slug = req.query.slug as string
     const raw = await pokemon.findOne({$or: [
+            // @ts-ignore
         {number: {$eq: Number(slug)}},
             {$text: {$search: slug}}
         ]})
