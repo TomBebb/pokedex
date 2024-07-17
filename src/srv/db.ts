@@ -1,10 +1,9 @@
-import {MongoClient} from 'mongodb';
-import {Pokemon} from "@/common/models";
+import { Pokemon } from "@/common/models"
+import { MongoClient } from "mongodb"
 
-const url = process.env.DATABASE_URL;
-if (!url)
-    throw new Error('MongoDB URL must be defined');
+const url = process.env.DATABASE_URL
+if (!url) throw new Error("MongoDB URL must be defined")
 export const db = new MongoClient(url)
-await db.connect();
+await db.connect()
 
-export const pokemon =  db.db().collection<Pokemon>('pokemon');
+export const pokemon = db.db().collection<Pokemon>("pokemon")
