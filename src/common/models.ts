@@ -43,3 +43,12 @@ export interface PokemonStats {
     spDef: number
     speed: number
 }
+export interface PaginatedQuery {
+
+    limit: number,
+    offset: number,
+}
+export interface Paginated<T> extends PaginatedQuery {
+    items: T[]
+    total: number,
+}
