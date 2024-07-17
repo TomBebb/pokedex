@@ -1,9 +1,9 @@
 "use client"
+import Button from "@/app/components/Button"
 import PokemonTypeDisplay from "@/app/components/PokemonTypeDisplay"
 import "@/app/globals.css"
 import { Paginated, Pokemon } from "@/common/models"
 import { useFetch } from "@mantine/hooks"
-import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { useMemo } from "react"
 
@@ -14,6 +14,7 @@ export default function PaginatedPage() {
     () => data !== null && data.offset + data.items.length < data.total,
     [data]
   )
+  const hasPrev = useMemo(() => data !== null && data.offset > 0, [data])
   const nextLink = useMemo<string | null>(
     () =>
       hasNext
@@ -24,6 +25,17 @@ export default function PaginatedPage() {
           })
         : null,
     [data, hasNext]
+  )
+  const prevLink = useMemo<string | null>(
+    () =>
+      hasPrev
+        ? "/paginated?" +
+          new URLSearchParams({
+            limit: data!.limit!.toString(),
+            offset: (data!.offset! - data!.limit!).toString(),
+          })
+        : null,
+    [data, hasPrev]
   )
   return data ? (
     <div className="grid grid-cols-2">
@@ -39,11 +51,12 @@ export default function PaginatedPage() {
         </>
       ))}
 
-      <div className="col-span-2">
+      <div className="col-span-2 flex flex-row">
+        {prevLink && <Button href={prevLink}>Prev</Button>}
         {nextLink && (
-          <Link href={nextLink} className="p-2  outline-3">
+          <Button href={nextLink} className="ml-auto">
             Next
-          </Link>
+          </Button>
         )}
       </div>
     </div>

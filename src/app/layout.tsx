@@ -18,8 +18,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="top-2 flex px-4 py-2">PokeDex</div>
-        {children}
+        <header className="top-0 flex  outline border-b-2 border-b-orange-50 px-4 py-2 sticky bg-black">
+          <div className="text-2xl">PokeDex </div>
+        </header>
+        <div className="px-4 py-2 scroll-auto">{children}</div>
       </body>
     </html>
   )
