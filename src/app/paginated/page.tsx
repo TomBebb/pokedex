@@ -45,7 +45,7 @@ export default function PaginatedPage() {
 
           <div className="grid grid-cols-2 select-none">
             {p.types.map((t) => (
-              <PokemonTypeDisplay value={t} />
+              <PokemonTypeDisplay key={t} value={t} />
             ))}
           </div>
         </>
