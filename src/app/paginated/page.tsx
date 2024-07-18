@@ -4,6 +4,7 @@ import PokemonTypeDisplay from "@/app/components/PokemonTypeDisplay"
 import "@/app/globals.css"
 import { Paginated, Pokemon } from "@/common/models"
 import { useFetch } from "@mantine/hooks"
+import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { useMemo } from "react"
 
@@ -38,9 +39,14 @@ export default function PaginatedPage() {
     [data, hasPrev]
   )
   return data ? (
-    <div className="grid grid-cols-2">
+    <div className="flex flex-col">
       {data.items.map((p: Pokemon) => (
-        <>
+        // eslint-disable-next-line react/jsx-no-undef
+        <Link
+          href={`/pokemon/${p.number}`}
+          key={p.number}
+          className="grid grid-cols-2"
+        >
           <div>{p.name}</div>
 
           <div className="grid grid-cols-2 select-none">
@@ -48,7 +54,7 @@ export default function PaginatedPage() {
               <PokemonTypeDisplay key={t} value={t} />
             ))}
           </div>
-        </>
+        </Link>
       ))}
 
       <div className="col-span-2 flex flex-row">
