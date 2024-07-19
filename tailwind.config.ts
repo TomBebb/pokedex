@@ -1,3 +1,4 @@
+// @ts-ignore
 import shadesOf from "tailwind-shades"
 import type { Config } from "tailwindcss"
 function mapShades(name: string, color: string): Record<string, string> {
