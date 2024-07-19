@@ -27,7 +27,7 @@ export default function PokemonView() {
   )
 
   return data !== null ? (
-    <div className="grid grid-cols-6 justify-items-stretch">
+    <div className="grid grid-cols-6 justify-items-stretch gap-2">
       <Button
         disabled={!hasPrev ?? false}
         href={`/pokemon/${num - 1}`}
@@ -35,37 +35,44 @@ export default function PokemonView() {
       >
         Prev
       </Button>
+      <div className="flex flex-row row-start-2 lg:row-start-1 lg:col-start-2 col-span-6 lg:col-span-4 gap-2">
+        <KeyValueView name="Side" className="flex-1">
+          <select
+            className="bg-black "
+            onChange={(v) => {
+              setSpriteSide(v.target.value as SpriteSide)
+            }}
+          >
+            {Object.entries(SpriteSide).map(([key, value]) => (
+              <option key={key} value={value}>
+                {key}
+              </option>
+            ))}
+          </select>
+        </KeyValueView>
+        <KeyValueView name="Variant" className="flex-1">
+          <select
+            className="bg-black col-span-3 "
+            onChange={(v) => {
+              setSpriteVariant(v.target.value as SpriteVariant)
+            }}
+          >
+            {Object.entries(SpriteVariant).map(([key, value]) => (
+              <option key={key} value={value}>
+                {key}
+              </option>
+            ))}
+          </select>
+        </KeyValueView>
+      </div>
       <Button
         disabled={!hasNext ?? false}
         href={`/pokemon/${num + 1}`}
-        className="lg:col-start-6 col-span-3 lg:col-span-1 lg:text-right text-center"
+        className="col-span-3 lg:col-span-1 lg:text-right text-center"
       >
         Next
       </Button>
-      <select
-        className="bg-black col-span-3 "
-        onChange={(v) => {
-          setSpriteSide(v.target.value as SpriteSide)
-        }}
-      >
-        {Object.entries(SpriteSide).map(([key, value]) => (
-          <option key={key} value={value}>
-            {key}
-          </option>
-        ))}
-      </select>
-      <select
-        className="bg-black col-span-3 "
-        onChange={(v) => {
-          setSpriteVariant(v.target.value as SpriteVariant)
-        }}
-      >
-        {Object.entries(SpriteVariant).map(([key, value]) => (
-          <option key={key} value={value}>
-            {key}
-          </option>
-        ))}
-      </select>
+
       <img
         className="object-cover pixelated w-full lg:col-span-2 col-span-6 max-w-[20vw] justify-self-center"
         src={resolveSpriteUrl(data.number, spriteSide, spriteVariant)}
