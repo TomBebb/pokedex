@@ -17,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="bg-bg text-fg border-fg">
       <body className={inter.className}>
         <Header />
         <div className="px-4 py-2 scroll-auto">{children}</div>

@@ -6,7 +6,7 @@ export default function PokemonTypeDisplay({
 }: ValueWrapper<PokemonType>) {
   return (
     <div
-      className="bg-black outline-2 text-center outline"
+      className="bg-dark outline-2 text-center outline"
       style={{ color: `#${typeHexColors[value]}` }}
     >
       {value.toUpperCase()}

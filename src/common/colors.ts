@@ -21,3 +21,9 @@ export const typeHexColors: Record<PokemonType, string> = {
   [PokemonType.Steel]: "B7B7CE",
   [PokemonType.Fairy]: "D685AD",
 }
+
+export const enum StyleColor {
+  Primary = "primary",
+  Secondary = "secondary",
+  Error = "error",
+}

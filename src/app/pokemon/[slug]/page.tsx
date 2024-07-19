@@ -2,6 +2,7 @@
 import Button, { Align } from "@/app/components/Button"
 import KeyValueView from "@/app/components/KeyValueView"
 import PokemonTypeDisplay from "@/app/components/PokemonTypeDisplay"
+import { StyleColor } from "@/common/colors"
 import {
   Pokemon,
   resolveSpriteUrl,
@@ -33,13 +34,14 @@ export default function PokemonView() {
         href={`/pokemon/${num - 1}`}
         className="col-span-3 text-center lg:col-span-1 lg:text-left"
         icon="ant-design:arrow-left-outlined"
+        style={StyleColor.Secondary}
       >
         Prev
       </Button>
       <div className="flex flex-row row-start-2 lg:row-start-1 lg:col-start-2 col-span-6 lg:col-span-4 gap-2">
         <KeyValueView name="Side" className="flex-1">
           <select
-            className="bg-black w-full"
+            className="bg-dark w-full "
             onChange={(v) => {
               setSpriteSide(v.target.value as SpriteSide)
             }}
