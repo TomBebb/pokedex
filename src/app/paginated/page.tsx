@@ -1,5 +1,5 @@
 "use client"
-import Button from "@/app/components/Button"
+import Button, { Align } from "@/app/components/Button"
 import PokemonTypeDisplay from "@/app/components/PokemonTypeDisplay"
 import "@/app/globals.css"
 import { Paginated, Pokemon } from "@/common/models"
@@ -59,9 +59,18 @@ export default function PaginatedPage() {
       ))}
 
       <div className="col-span-2 flex flex-row">
-        {prevLink && <Button href={prevLink}>Prev</Button>}
+        {prevLink && (
+          <Button href={prevLink} icon="ant-design:arrow-left-outlined">
+            Prev
+          </Button>
+        )}
         {nextLink && (
-          <Button href={nextLink} className="ml-auto">
+          <Button
+            href={nextLink}
+            className="ml-auto"
+            align={Align.Right}
+            icon="ant-design:arrow-right-outlined"
+          >
             Next
           </Button>
         )}

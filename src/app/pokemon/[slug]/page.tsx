@@ -1,5 +1,5 @@
 "use client"
-import Button from "@/app/components/Button"
+import Button, { Align } from "@/app/components/Button"
 import KeyValueView from "@/app/components/KeyValueView"
 import PokemonTypeDisplay from "@/app/components/PokemonTypeDisplay"
 import {
@@ -32,6 +32,7 @@ export default function PokemonView() {
         disabled={!hasPrev ?? false}
         href={`/pokemon/${num - 1}`}
         className="col-span-3 text-center lg:col-span-1 lg:text-left"
+        icon="ant-design:arrow-left-outlined"
       >
         Prev
       </Button>
@@ -69,6 +70,8 @@ export default function PokemonView() {
         disabled={!hasNext ?? false}
         href={`/pokemon/${num + 1}`}
         className="col-span-3 lg:col-span-1 lg:text-right text-center"
+        icon="ant-design:arrow-right-outlined"
+        align={Align.Right}
       >
         Next
       </Button>
