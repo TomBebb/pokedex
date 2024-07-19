@@ -1,5 +1,6 @@
 "use client"
-import { routes } from "@/common/meta"
+import { routes } from "@/common/routes"
+import { Icon } from "@iconify/react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
@@ -16,8 +17,17 @@ export default function Header() {
         <Link
           key={route.path}
           href={route.path}
-          className={`${pathname === route.path ? "border-b-green-400" : ""} border-b-2 transition-colors hover:border-b-green-400`}
+          className={`${pathname === route.path ? "border-b-green-400" : ""} flex flex-row items-center gap-2 border-b-2 transition-colors hover:border-b-green-400`}
         >
+          {route.icon && (
+            <Icon
+              icon={
+                pathname === route.path
+                  ? route.icon.active
+                  : route.icon.inactive
+              }
+            />
+          )}
           {route.name}
         </Link>
       ))}
