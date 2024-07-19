@@ -8,6 +8,7 @@ import { useParams } from "next/navigation"
 export default function PokemonView() {
   const { slug } = useParams<{ slug: string }>()!
   const { data } = useFetch<Pokemon>("/api/" + slug)
+
   return data !== null ? (
     <div className="flex  flex-col lg:flex-row">
       <img
@@ -20,6 +21,16 @@ export default function PokemonView() {
           <div className="w-full flex flex-row gap-5 justify-center lg:justify-start">
             {data.types.map((ty) => (
               <PokemonTypeDisplay key={ty} value={ty} />
+            ))}
+          </div>
+        </KeyValueView>
+        <KeyValueView name="Abilities">
+          <div className="w-full flex flex-col lg:flex-row gap-5 justify-center lg:justify-start gap-5">
+            {data.abilities.map((a) => (
+              <div className="outline outline-1 px-1 flex-col">
+                <div className="font-bold">{a.name}</div>
+                <div>{a.description}</div>
+              </div>
             ))}
           </div>
         </KeyValueView>

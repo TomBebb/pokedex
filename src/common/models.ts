@@ -8,6 +8,7 @@ export interface Pokemon {
   weight: string
   height: string
   mega: boolean
+  abilities: PokemonAbility[]
 }
 export enum PokemonType {
   Normal = "Normal",
