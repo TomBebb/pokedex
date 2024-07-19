@@ -62,7 +62,7 @@ export default function PokemonView() {
         <KeyValueView name="Abilities">
           <div className="w-full flex flex-col lg:flex-row gap-5 justify-center lg:justify-start gap-5">
             {data.abilities.map((a) => (
-              <div className="outline outline-1 px-1 flex-col">
+              <div key={a.name} className="outline outline-1 px-1 flex-col">
                 <div className="font-bold">{a.name}</div>
                 <div>{a.description}</div>
               </div>
