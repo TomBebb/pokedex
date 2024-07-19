@@ -6,9 +6,16 @@ import { Paginated, Pokemon } from "@/common/models"
 import { useFetch } from "@mantine/hooks"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
-import { useMemo } from "react"
+import { Suspense, useMemo } from "react"
 
 export default function PaginatedPage() {
+  return (
+    <Suspense fallback={null}>
+      <PaginatedPageInner />
+    </Suspense>
+  )
+}
+function PaginatedPageInner() {
   const params = useSearchParams()
   const { data } = useFetch<Paginated<Pokemon>>("/api/paginated?" + params)
   const hasNext = useMemo(
