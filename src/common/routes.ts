@@ -1,6 +1,3 @@
-"use client"
-import { usePathname } from "next/navigation"
-
 export interface Route {
   name: string
   path: string | RegExp
@@ -15,9 +12,14 @@ export function routePathMatch(
   curr: string,
   routePath: Route["path"]
 ): boolean {
-  return typeof routePath === "string"
-    ? routePath === curr
-    : routePath.test(curr)
+  let matches: boolean
+  if (typeof routePath === "string") {
+    matches = routePath === curr
+  } else {
+    matches = routePath.test(curr)
+    console.debug("routePathMatch regex", { curr, routePath, matches })
+  }
+  return matches
 }
 function antIcon(name: string): Route["icon"] {
   return {
@@ -53,7 +55,7 @@ export const routes: Route[] = [
     icon: outlinedAntIcon("ordered-list"),
   },
 ]
-export function useActiveRoute(): Route | undefined {
-  const pathname = usePathname() ?? ""
+export function findMatchingRoute(pathname: string): Route | undefined {
+  console.info("findMatchingRoute", { pathname, exact: true })
   return routes.find((route) => routePathMatch(pathname, route.path))
 }
