@@ -76,7 +76,6 @@ export function resolveSpriteUrl(
   side: SpriteSide,
   variant: SpriteVariant
 ): string {
-  console.info({ no, side, variant })
   let url =
     "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon"
   if (side === SpriteSide.Back) {
