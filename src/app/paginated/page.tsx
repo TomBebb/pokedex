@@ -45,11 +45,12 @@ export default function PaginatedPage() {
         <Link
           href={`/pokemon/${p.number}`}
           key={p.number}
-          className="grid grid-cols-2"
+          className="grid lg:grid-cols-3 justify-items-center lg:justify-items-stretch gap-2"
         >
+          <div>{p.number.toString().padStart(4, "0")}</div>
           <div>{p.name}</div>
 
-          <div className="grid grid-cols-2 select-none">
+          <div className="grid grid-cols-2 select-none gap-2 lg:gap-0">
             {p.types.map((t) => (
               <PokemonTypeDisplay key={t} value={t} />
             ))}

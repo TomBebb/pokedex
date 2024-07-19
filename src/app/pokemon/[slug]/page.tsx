@@ -51,6 +51,9 @@ export default function PokemonView() {
         src={resolveSpriteUrl(data.number, spriteSide, spriteVariant)}
       />
       <div className="flex flex-col col-span-2">
+        <KeyValueView name="Number">
+          {data!.number.toString().padStart(4, "0")}
+        </KeyValueView>
         <KeyValueView name="Name">{data!.name}</KeyValueView>
         <KeyValueView name="Types">
           <div className="w-full flex flex-row gap-5 justify-center lg:justify-start">
