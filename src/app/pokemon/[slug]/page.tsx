@@ -41,7 +41,7 @@ export default function PokemonView() {
       <div className="flex flex-row row-start-2 lg:row-start-1 lg:col-start-2 col-span-6 lg:col-span-4 gap-2">
         <KeyValueView name="Side" className="flex-1">
           <select
-            className="bg-dark w-full "
+            className="bg-bg w-full "
             onChange={(v) => {
               setSpriteSide(v.target.value as SpriteSide)
             }}
@@ -55,7 +55,7 @@ export default function PokemonView() {
         </KeyValueView>
         <KeyValueView name="Variant" className="flex-1">
           <select
-            className="bg-black w-full"
+            className="bg-bg w-full"
             onChange={(v) => {
               setSpriteVariant(v.target.value as SpriteVariant)
             }}
