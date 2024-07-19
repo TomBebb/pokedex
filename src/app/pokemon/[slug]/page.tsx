@@ -1,4 +1,5 @@
 "use client"
+import Button from "@/app/components/Button"
 import KeyValueView from "@/app/components/KeyValueView"
 import PokemonTypeDisplay from "@/app/components/PokemonTypeDisplay"
 import {
@@ -9,19 +10,38 @@ import {
 } from "@/common/models"
 import { useFetch } from "@mantine/hooks"
 import { useParams } from "next/navigation"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 
 export default function PokemonView() {
   const { slug } = useParams<{ slug: string }>()!
   const { data } = useFetch<Pokemon>("/api/" + slug)
   const [spriteSide, setSpriteSide] = useState<SpriteSide>(SpriteSide.Front)
+  const num = useMemo(() => parseInt(data?.number as string), [data?.number])
+  // @ts-ignore
+  const { data: hasNext } = useFetch<boolean>(`/api/${num + 1}/exists`)
+  // @ts-ignore
+  const { data: hasPrev } = useFetch<boolean>(`/api/${num - 1}/exists`)
 
   const [spriteVariant, setSpriteVariant] = useState<SpriteVariant>(
     SpriteVariant.Default
   )
 
   return data !== null ? (
-    <div className="grid grid-cols-3 justify-items-center">
+    <div className="grid grid-cols-6 justify-items-stretch">
+      <Button
+        disabled={!hasPrev ?? false}
+        href={`/pokemon/${num - 1}`}
+        className="col-span-3 text-center lg:col-span-1 lg:text-left"
+      >
+        Prev
+      </Button>
+      <Button
+        disabled={!hasNext ?? false}
+        href={`/pokemon/${num + 1}`}
+        className="lg:col-start-6 col-span-3 lg:col-span-1 lg:text-right text-center"
+      >
+        Next
+      </Button>
       <select
         className="bg-black col-span-3 "
         onChange={(v) => {
@@ -47,10 +67,10 @@ export default function PokemonView() {
         ))}
       </select>
       <img
-        className="object-cover pixelated w-full lg:col-span-1 col-span-3 max-w-[20vw]"
+        className="object-cover pixelated w-full lg:col-span-2 col-span-6 max-w-[20vw] justify-self-center"
         src={resolveSpriteUrl(data.number, spriteSide, spriteVariant)}
       />
-      <div className="flex flex-col col-span-2">
+      <div className="flex flex-col col-span-6 lg:col-span-4">
         <KeyValueView name="Number">
           {data!.number.toString().padStart(4, "0")}
         </KeyValueView>
