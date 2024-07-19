@@ -1,5 +1,16 @@
+import shadesOf from "tailwind-shades"
 import type { Config } from "tailwindcss"
+function mapShades(name: string, color: string): Record<string, string> {
+  const shades: Record<string, string> = shadesOf(color)
 
+  const entries = Object.entries(shades)
+    .map(([key, value]) => [`${name}-${key}`, value])
+    .concat([[name, color]])
+  const raw = Object.fromEntries(entries)
+  console.info(raw)
+
+  return raw
+}
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -8,7 +19,8 @@ const config: Config = {
   ],
   safelist: [
     {
-      pattern: /bg-(primary|secondary|error)(-content)?(-(100|200|300))?/,
+      variants: ["focus", "hover", "dark"],
+      pattern: /(bg|text)-(primary|secondary|error)(-content)?(-[0-9]+)?/,
     },
   ],
   theme: {
@@ -16,9 +28,9 @@ const config: Config = {
       colors: {
         bg: "#041B15",
         fg: "#4CE0D2",
-        primary: "#84CAE7",
-        "primary-content": "#000",
-        secondary: "#22aaa1",
+        ...mapShades("primary", "#84CAE7"),
+        ...mapShades("primary-content", "#000"),
+        ...mapShades("secondary", "#22aaa1"),
         error: "#00ff00",
       },
       backgroundImage: {
