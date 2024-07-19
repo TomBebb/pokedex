@@ -1,21 +1,56 @@
 "use client"
 import KeyValueView from "@/app/components/KeyValueView"
 import PokemonTypeDisplay from "@/app/components/PokemonTypeDisplay"
-import { Pokemon } from "@/common/models"
+import {
+  Pokemon,
+  resolveSpriteUrl,
+  SpriteSide,
+  SpriteVariant,
+} from "@/common/models"
 import { useFetch } from "@mantine/hooks"
 import { useParams } from "next/navigation"
+import { useState } from "react"
 
 export default function PokemonView() {
   const { slug } = useParams<{ slug: string }>()!
   const { data } = useFetch<Pokemon>("/api/" + slug)
+  const [spriteSide, setSpriteSide] = useState<SpriteSide>(SpriteSide.Front)
+
+  const [spriteVariant, setSpriteVariant] = useState<SpriteVariant>(
+    SpriteVariant.Default
+  )
 
   return data !== null ? (
-    <div className="flex  flex-col lg:flex-row">
+    <div className="grid grid-cols-3 justify-items-center">
+      <select
+        className="bg-black col-span-3 "
+        onChange={(v) => {
+          setSpriteSide(v.target.value as SpriteSide)
+        }}
+      >
+        {Object.entries(SpriteSide).map(([key, value]) => (
+          <option key={key} value={value}>
+            {key}
+          </option>
+        ))}
+      </select>
+      <select
+        className="bg-black col-span-3 "
+        onChange={(v) => {
+          setSpriteVariant(v.target.value as SpriteVariant)
+        }}
+      >
+        {Object.entries(SpriteVariant).map(([key, value]) => (
+          <option key={key} value={value}>
+            {key}
+          </option>
+        ))}
+      </select>
       <img
-        className="object-cover pixelated max-h-[25vw]"
-        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/172.png`}
+        className="object-cover pixelated w-full lg:col-span-1 col-span-3 max-w-[20vw]"
+        src={resolveSpriteUrl(data.number, spriteSide, spriteVariant)}
       />
-      <div className="flex flex-col flex-1">
+      <div className="flex flex-col col-span-2">
         <KeyValueView name="Name">{data!.name}</KeyValueView>
         <KeyValueView name="Types">
           <div className="w-full flex flex-row gap-5 justify-center lg:justify-start">

@@ -10,6 +10,7 @@ export interface Pokemon {
   mega: boolean
   abilities: PokemonAbility[]
 }
+
 export enum PokemonType {
   Normal = "Normal",
   Flying = "Flying",
@@ -30,6 +31,7 @@ export enum PokemonType {
   Ground = "Ground",
   Fairy = "Fairy",
 }
+
 export interface PokemonAbility {
   name: string
   description: string
@@ -44,14 +46,44 @@ export interface PokemonStats {
   spDef: number
   speed: number
 }
+
 export interface PaginatedQuery {
   limit: number
   offset: number
 }
+
 export interface Paginated<T> extends PaginatedQuery {
   items: T[]
   total: number
 }
+
 export interface ValueWrapper<T> {
   value: T
+}
+
+export enum SpriteSide {
+  Back = "back",
+  Front = "front",
+}
+
+export enum SpriteVariant {
+  Default = "default",
+  Shiny = "shiny",
+}
+
+export function resolveSpriteUrl(
+  no: number | string,
+  side: SpriteSide,
+  variant: SpriteVariant
+): string {
+  console.info({ no, side, variant })
+  let url =
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon"
+  if (side === SpriteSide.Back) {
+    url += "/back"
+  }
+  if (variant === SpriteVariant.Shiny) {
+    url += "/shiny"
+  }
+  return `${url}/${no}.png`
 }
